@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tucker Gardner | Snowboarding Speed Challenge</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Embedded styles (single-page app requirement) -->
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
+
+        /* Navigation */
+        .navbar {
+            background-color: #020617;
+            padding: 15px 0;
+        }
+
+        .nav-container {
+            width: 90%;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: #e5e7eb;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* App Container */
+        .app-container {
+            background-color: #020617;
+            width: 85%;
+            max-width: 650px;
+            margin: 60px auto;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(0,0,0,0.4);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #38bdf8;
+        }
+
+        p {
+            color: #cbd5f5;
+        }
+
+        input[type="number"] {
+            padding: 12px;
+            width: 80%;
+            max-width: 220px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: none;
+        }
+
+        .btn {
+            background-color: #1e3a8a;
+            color: #ffffff;
+            border: none;
+            padding: 12px 22px;
+            margin: 5px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: #2563eb;
+        }
+
+        .message {
+            margin-top: 25px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .counter {
+            margin-top: 10px;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <h1 class="logo">Tucker Gardner</h1>
+            <ul class="nav-links">
+                <ul class="nav-links">
+    <li><a href="index.html">Résumé</a></li>
+    <li><a href="scratch.html">Snowboarding</a></li>
+</ul>
+
+            </ul>
+        </div>
+    </nav>
+
+    <!-- App -->
+    <div class="app-container">
+        <h2>🏂 Snowboarding Speed Challenge</h2>
+        <p>
+            A snowboarder is flying down the mountain.<br>
+            Based on the terrain and conditions, guess their speed!
+        </p>
+        <p><strong>Speed range:</strong> 10–70 mph</p>
+
+        <input type="number" id="guessInput" placeholder="Enter speed (mph)">
+
+        <div>
+            <button class="btn" onclick="checkGuess()">Check Speed</button>
+            <button class="btn" onclick="resetGame()">New Run</button>
+        </div>
+
+        <div class="message" id="message"></div>
+        <div class="counter" id="counter"></div>
+    </div>
+
+    <!-- Script -->
+    <script>
+        let secretSpeed = Math.floor(Math.random() * 61) + 10; // 10–70 mph
+        let attempts = 0;
+
+        function checkGuess() {
+            const guess = Number(document.getElementById("guessInput").value);
+            const message = document.getElementById("message");
+            const counter = document.getElementById("counter");
+
+            if (!guess || guess < 10 || guess > 70) {
+                message.textContent = "⛷️ Enter a speed between 10 and 70 mph.";
+                return;
+            }
+
+            attempts++;
+
+            if (guess === secretSpeed) {
+                message.textContent = "🏁 Perfect run! You nailed the speed!";
+                counter.textContent = "Runs analyzed: " + attempts;
+            } else if (guess < secretSpeed) {
+                message.textContent = "⬆️ Too slow — the rider is moving faster.";
+                counter.textContent = "Attempts so far: " + attempts;
+            } else {
+                message.textContent = "⬇️ Too fast — dial it back a bit.";
+                counter.textContent = "Attempts so far: " + attempts;
+            }
+        }
+
+        function resetGame() {
+            secretSpeed = Math.floor(Math.random() * 61) + 10;
+            attempts = 0;
+            document.getElementById("message").textContent = "";
+            document.getElementById("counter").textContent = "";
+            document.getElementById("guessInput").value = "";
+        }
+    </script>
+
+</body>
+</html>
